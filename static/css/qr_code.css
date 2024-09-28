@@ -1,0 +1,80 @@
+#left1 {
+  top: 34px;
+  padding: 2em;
+}
+#right1 {
+  top: 34px;
+  padding: 2em;
+}
+.content_1,
+.content_2,
+.content_3 {
+  border: 1px solid #d0d8e0;
+  border-radius: 10px;
+  padding: 25px;
+  margin: 20px;
+  background-color: #f5f7f9;
+}
+#canvas {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
+  overflow: visible;
+  margin: 20px;
+  border-radius: 10px;
+}
+.download_options {
+  padding: 10px;
+  margin-top: 10px;
+}
+.ico {
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+}
+.dot_ico {
+  cursor: pointer;
+  height: 100px;
+  width: 100px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+}
+.ico:hover,
+.dot_ico:hover {
+  border: 1px solid grey;
+  box-shadow: 0px 0px 5px 0px;
+}
+.corner-image-selector {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+.dots-type-selector {
+  display: block;
+  gap: 20px;
+  padding: 20px;
+}
+.tick-icon {
+  position: absolute;
+  top: 5px; /* Adjust position */
+  right: 5px; /* Adjust position */
+  font-size: 20px; /* Adjust size as needed */
+  color: green; /* Choose color as needed */
+  display: none; /* Hide by default */
+}
+.dot-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+}
+.material-symbols-outlined {
+  font-weight: bolder;
+}
+.color_ip {
+  height: 50px;
+  width: 80px;
+}
