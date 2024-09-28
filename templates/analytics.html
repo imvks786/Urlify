@@ -1,0 +1,271 @@
+<!Doctype html>
+<html lang="en">
+<head>
+    <title>Analytics</title>
+    {% include 'links.html' %}
+    <link rel="stylesheet" href="static/css/qr_code.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% include 'msb.html' %}
+    <style>
+        .row{
+            display: flex;
+        }
+        .ana_graphs{
+            padding: 10px;
+            background-color: white;
+            border-radius: 25px;
+            margin:10px;
+        }
+        .inbox{
+            background-color: #f4f6fa !important;
+        }
+    </style>
+    <!--main content wrapper-->
+    <div class="mcw">
+        <div class="cv"></div>
+        <div class="inbox">
+            <div class="inbox-sb">
+            </div>
+            <div class="inbox-bx container-fluid">
+                <div id="container">
+                    <div class="container inp_area">
+                        <h1>Analytics</h1>
+                        <p>Visualize your data with comprehensive analytics. Make informed decisions based on real-time statistics and trends.
+                            
+                        </p>
+                        <div class="container">
+                            <div class="row my-3">
+                                <div class="col">
+                                    <h4>User Activity Analytics</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!---DAILY ACTIVITY-->
+                                
+                                <div class="col-md-8 ana_graphs">
+                                    <div class="card">
+                                        <h5>Daily Activity</h5>
+                                        <div class="card-body">
+                                            <canvas id="chLine"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!---TOP BROWSERS-->
+                                
+                                <div class="col-md-4 ana_graphs">
+                                    <div class="card">
+                                        <h5>Top Browsers</h5>
+                                        <div class="card-body">
+                                            <canvas id="chDonut1"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <!---TOTAL CLICK PER LINK-->
+                                <div class="col-md-6 ana_graphs">
+                                    <div class="card">
+                                        <h5>Total Clicks per link</h5>
+                                        <div class="card-body">
+                                            <canvas id="linkClickChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---TOP PLATFORMS-->
+                                <div class="col-md-6 ana_graphs">
+                                    <div class="card">
+                                        <h5>Top Platforms</h5>
+                                        <div class="card-body">
+                                            <canvas id="chBar"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 ana_graphs">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <canvas id="locationList"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        var data;
+        // Fetch analytics data and update charts
+        fetch('/get_analytics_data')
+            .then(response => response.json())
+            .then(data => {
+                updateCharts(data);
+                console.log(data);
+            });
+
+        function updateCharts(data) {
+            // Chart colors
+            var colors = ['#007bff','#28a745','#333333','#c3e6cb','#dc3545','#6c757d'];
+
+            // Daily Activity Line Chart
+            var chLine = document.getElementById("chLine");
+            var chartData = {
+                labels: data.daily_activity.map(item => item.date),
+                datasets: [{
+                    data: data.daily_activity.map(item => item.count),
+                    backgroundColor: 'transparent',
+                    borderColor: colors[0],
+                    borderWidth: 4,
+                    pointBackgroundColor: colors[0]
+                }]
+            };
+            new Chart(chLine, {
+                type: 'line',
+                data: chartData,
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: false
+                            }
+                        }]
+                    },
+                    legend: {
+                        display: false
+                    },
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Daily Activity (Last 7 Days)'
+                    }
+                }
+            });
+
+            // Platform Bar Chart
+            var chBar = document.getElementById("chBar");
+            var barData = {
+                labels: data.platform_data.map(item => item.platform),
+                datasets: [{
+                    data: data.platform_data.map(item => item.count),
+                    backgroundColor: colors[0]
+                }]
+            };
+            new Chart(chBar, {
+                type: 'bar',
+                data: barData,
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        xAxes: [{
+                            barPercentage: 0.4,
+                            categoryPercentage: 0.5
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'Top Platforms'
+                    }
+                }
+            });
+
+            // Browser Donut Chart
+            var chDonut1 = document.getElementById("chDonut1");
+            var donutData = {
+                labels: data.browser_data.map(item => item.browser),
+                datasets: [{
+                    backgroundColor: colors.slice(0, data.browser_data.length),
+                    borderWidth: 0,
+                    data: data.browser_data.map(item => item.count)
+                }]
+            };
+            new Chart(chDonut1, {
+                type: 'pie',
+                data: donutData,
+                options: {
+                    cutoutPercentage: 85,
+                    legend: {position:'bottom', padding:5, labels: {pointStyle:'circle', usePointStyle:true}},
+                    title: {
+                        display: true,
+                        text: 'Top Browsers'
+                    }
+                }
+            });
+
+            // Update location list
+            var locationList = document.getElementById("locationList");
+            locationList.innerHTML = ''; // Clear existing list
+            data.location_data.forEach((item, index) => {
+                var listItem = document.createElement('li');
+                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                listItem.innerHTML = `
+                    ${index + 1}. ${item.location}
+                    <span class="badge bg-primary rounded-pill">${item.count}</span>
+                `;
+                locationList.appendChild(listItem);
+            });
+
+
+
+            // Link Click Chart
+        var linkClickChart = document.getElementById("linkClickChart");
+        var linkClickData = {
+            labels: data.link_click_data.map(item => item.short_code),
+            datasets: [{
+                label: 'Click Count',
+                data: data.link_click_data.map(item => item.click_count),
+                backgroundColor: colors.slice(0, data.link_click_data.length),
+                borderColor: colors.slice(0, data.link_click_data.length),
+                borderWidth: 1
+            }]
+        };
+        new Chart(linkClickChart, {
+            type: 'bar',
+            data: linkClickData,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                legend: {
+                    display: false
+                },
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Total Clicks per Link'
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, chartData) {
+                            var index = tooltipItem.index;
+                            var dataItem = data.link_click_data[index];
+                            return `${dataItem.short_code}: ${dataItem.click_count} clicks\nURL: ${dataItem.long_url}`;
+                        }
+                    }
+                }
+            }
+        });
+        }
+
+        $(".side").removeClass("active");
+        $("#analytics_sb").addClass("active");
+    </script>
+</body>
+</html>

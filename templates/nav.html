@@ -1,0 +1,60 @@
+<style>
+  .navbar_{
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 75%, rgba(0,212,255,1) 100%);
+  }
+  .fa-bars{
+    color: white !important;
+  }
+  .mynavbar_ .navbar-nav>li>a{
+    color: white !important;
+  }
+  .msg{
+    color: white !important;
+    margin: 10px;
+  }
+
+  .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    color: #555;
+    background-color: #147ddc !important;
+  }
+</style>
+<nav class="mnb navbar navbar-default navbar-fixed-top mynavbar_">
+  <div class="container-fluid navbar_">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <i class="ic fa fa-bars"></i>
+      </button>
+      <div style="padding: 15px 0;">
+         <a href="#" id="msbo"><i class="ic fa fa-bars"></i><span class="msg">Welcome, {{ session['user'] if session['user'] else 'Guest' }} !</span></a>
+      </div>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">En</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            {{ session['user'] if session['user'] else 'Guest' }} <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            {% if session['user'] %}
+              <li><a href="account">Settings</a></li>
+              <li><a href="#">Upgrade</a></li>
+              <li><a href="#">Help</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="logout">Logout</a></li>
+            {% else %}
+              <li><a href="login">Login</a></li>
+            {% endif %}
+          </ul>
+        </li>
+        <li><a href="#"><i class="fa fa-bell-o"></i></a></li>
+        <li><a href="#"><i class="fa fa-comment-o"></i></a></li>
+      </ul>
+      <form class="navbar-form navbar-right">
+        <input type="text" class="form-control" placeholder="Search...">
+      </form>
+    </div>
+  </div>
+</nav>

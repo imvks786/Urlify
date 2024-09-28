@@ -1,0 +1,116 @@
+<!Doctype html>
+<html lang="en"  data-bs-theme="dark">
+<head>
+    <title>B</title>
+    {% include 'links.html' %}
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% include 'msb.html' %}
+    <!--main content wrapper-->
+    <style>
+        .needs-validation{
+            padding: 15px;
+            margin: 20px 20px 20px 0px;
+            background-color: #f5f7f9;
+            border-radius: 25px;
+        }
+    </style>
+    <div class="mcw">
+        <div class="cv"></div>
+        <div class="inbox">
+            <div class="inbox-sb">
+                <div class="inbox-bx container-fluid">
+                    <!-- link -->
+                    <div class="container utm_builder mt-5">
+                        <h1>UTM Builder</h1>
+                        <p><b>Build URLs for your marketing campaigns</b></p>
+                        <p>URL links with UTM allow to track performance data about specific online campaigns like Facebook, Google Ads, affiliations, and others. With UTMs, you can also analyze traffic coming from referrals and SEO backlinks.</p>
+                        
+                        <div class="container text-center utm-link">
+                            <span id="generatedUTM" style="word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; display: inline-block;"></span>
+                        </div>
+
+                        <form id="utm-form" class="needs-validation" novalidate>
+                            <fieldset >
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 m-3">
+                                        <label for="utm-url">Enter URL</label>
+                                        <input type="url" class="form-control" id="utm-url" placeholder="Enter your URL here" required>
+                                    </div>
+                                    <div class="form-group col-md-6 m-3">
+                                        <label for="utm-source">Campaign Source</label>
+                                        <input type="text" class="form-control" id="utm-source" placeholder="Campaign Source" required>
+                                    </div>
+                                    <div class="form-group col-md-6 m-3">
+                                        <label for="utm-medium">Campaign Medium</label>
+                                        <input type="text" class="form-control" id="utm-medium" placeholder="Campaign Medium" required>
+                                    </div>
+                                    <div class="form-group col-md-6 m-3">
+                                        <label for="utm-campaign">Campaign Name</label>
+                                        <input type="text" class="form-control" id="utm-campaign" placeholder="Campaign Name" required>
+                                    </div>
+                                    <div class="form-group col-md-6 m-3">
+                                        <label for="utm-term">Campaign Term</label>
+                                        <input type="text" class="form-control" id="utm-term" placeholder="Campaign Term (Optional)">
+                                    </div>
+                                    <div class="form-group col-md-6 m-3">
+                                        <label for="utm-content">Campaign Content</label>
+                                        <input type="text" class="form-control" id="utm-content" placeholder="Campaign Content (Optional)">
+                                    </div>
+                                    <div class="form-group col-md-6 m-3">
+                                        <button type="button" class="btn btn-primary" id="generate-utm" onclick="generateUTM();">Generate UTM URL</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .utm-link{
+            display: none;
+            background-color: #ececec;
+            border-radius: 25px;
+            padding: 10px;
+            margin: 15px;
+        }
+        #generatedUTM{
+            a{
+                text-decoration: none;
+                font-weight: 500;
+            }
+        }
+    </style>
+
+ 
+    <script>
+        function generateUTM() {
+            var url = $('#utm-url').val();
+            var source = $('#utm-source').val();
+            var medium = $('#utm-medium').val();
+            var campaign = $('#utm-campaign').val();
+            var term = $('#utm-term').val();
+            var content = $('#utm-content').val();
+            var utmUrl = url + '?utm_source=' + encodeURIComponent(source) +
+                         '&utm_medium=' + encodeURIComponent(medium) +
+                         '&utm_campaign=' + encodeURIComponent(campaign);
+            if (term) {
+                utmUrl += '&utm_term=' + encodeURIComponent(term);
+            }
+            if (content) {
+                utmUrl += '&utm_content=' + encodeURIComponent(content);
+            }
+            $(".utm-link").fadeIn();
+            $("#generatedUTM").html(`<a href="${utmUrl}" target="_blank">${utmUrl}</a>`);
+        }
+    </script>
+    <script>
+        $(".side").removeClass("active");
+        $("#link_sb").addClass("active");
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!Doctype html>
+<html lang="en">
+<head>
+    <title>B</title>
+    {% include 'links.html' %}
+    <link rel="stylesheet" href="static/css/qr_code.css"/>
+    <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>   
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% include 'msb.html' %}
+    <!--main content wrapper-->
+    <div class="mcw">
+        <div class="cv"></div>
+        <div class="inbox">
+            <div class="inbox-sb">
+                <div class="inbox-bx container-fluid">
+                    <div id="container">
+                        <div class="container">
+                            <h1>Custom Landing Page</h1>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- New container for user's short URLs -->
+                    <div class="container mt-5">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function get_s(){
+            const longUrl = $('#long-url').val();
+        
+            $.ajax({
+                url: '/CREATE_URL',
+                type: 'POST',
+                data: { long_url: longUrl },
+                success: function (data) {
+                    console.log(data);
+                    //let trackUrl = data.replace('/r?', '/track?');
+                    $("#SHORT_URL").html(data.short_url);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+

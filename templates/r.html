@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting...</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>You are being redirected...</h1>
+    <script>
+        function getBrowser() {
+            var ua = navigator.userAgent;
+            var browserName;
+            if (ua.match(/chrome|chromium|crios/i)) browserName = "Chrome";
+            else if (ua.match(/firefox|fxios/i)) browserName = "Firefox";
+            else if (ua.match(/safari/i)) browserName = "Safari";
+            else if (ua.match(/opr\//i)) browserName = "Opera";
+            else if (ua.match(/edg/i)) browserName = "Edge";
+            else browserName = "Unknown";
+            return browserName;
+        }
+
+        var info = {
+            config: function() {
+                return {
+                    shortCode: "{{ short_code }}",
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    userTime: new Date().toISOString(),
+                    language: navigator.language,
+                    browser: getBrowser(),
+                    userAgent: navigator.userAgent,
+                    platform: navigator.platform,
+                    referringUrl: document.referrer,
+                    screenSize: window.screen.width + 'x' + window.screen.height,
+                    orientation: screen.orientation ? screen.orientation.type : 'unknown',
+                    colorScheme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Dark' : 'Light',
+                    hdr: window.matchMedia('(dynamic-range: high)').matches ? 'Yes' : 'No',
+                    touchScreen: 'ontouchstart' in window ? 'Yes' : 'No',
+                    gpu: (function() {
+                        var canvas = document.createElement('canvas');
+                        var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                        if (!gl) return 'unknown';
+                        var debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                        return debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : 'unknown';
+                    })()
+                };
+            }
+        };
+
+        $(document).ready(function() {
+            let collect_event = info.config();
+            
+            $.ajax({
+                url: '/store',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(collect_event),
+                success: function(data) {
+                    setTimeout(function() {
+                        window.location.replace("{{ url }}");
+                    }, 1000);
+                },
+                error: function(e) {
+                    console.error('Error storing data:', e);
+                    window.location.replace("{{ url }}");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

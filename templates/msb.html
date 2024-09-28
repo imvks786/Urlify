@@ -1,0 +1,47 @@
+<!--msb: main sidebar-->
+<div class="msb" id="msb">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <div class="brand-wrapper">
+                <div class="brand-name-wrapper">
+                    <a class="navbar-brand" href="#">URLZ</a>
+                </div>
+            </div>
+        </div>
+        <!-- Main Menu -->
+        <div class="side-menu-container">
+            <ul class="nav navbar-nav">
+                <li id="home_sb"  class="active side"><a href="/"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+                <li id="addurl_sb" class="side"><a href="add_url"><i class="fa fa-puzzle-piece"></i> Add Link</a></li>
+                <li id="analytics_sb" class="side"><a href="analytics"><i class="fa fa-bar-chart"></i>Analytics</a></li>
+                <li id="link_sb" class="side"><a href="link"><i class="fa fa-link"></i>UTM Link Builder</a></li>
+                <li id="cslp_sb" class="side"><a href="custom_landing"><i class="fa fa-cube"></i>Custom Landing Page</a></li>
+                <!-- <li id="qr_sb" class="side"><a href="qr_code"><i class="fa fa-qrcode"></i>QR Code</a></li> -->
+
+<!-- Dropdown-->
+<li class="side" id="dropdown">
+    <a data-toggle="collapse" href="#dropdown-lvl1"><i class="fa fa-qrcode"></i> QR Code <span class="caret"></span></a>
+    <!-- Dropdown level 1 -->
+    <div id="dropdown-lvl1" class="panel-collapse collapse">
+        <div class="sub_menu">
+            <ul class="nav navbar-nav">
+                <li id="qr_sb" class="side"><a href="qr_code"><i class="fa fa-qrcode"></i>Create QR Code</a></li>
+                <li  class="side" id="my_qr_codes_sb"><a href="{{ url_for('my_qr_codes') }}">My QR Codes</a></li>
+            </ul>
+        </div>
+    </div>
+</li>
+
+
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<script>
+    (function(){
+        $('#msbo').on('click', function(){
+            $('body').toggleClass('msb-x');
+        });
+    }());
+</script>

@@ -1,0 +1,82 @@
+<!Doctype html>
+<html lang="en">
+<head>
+    <title>B</title>
+    {% include 'links.html' %}
+    <link rel="stylesheet" href="static/css/qr_code.css"/>
+    <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>   
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% include 'msb.html' %}
+    <!--main content wrapper-->
+    <div class="mcw">
+        <div class="cv"></div>
+        <div class="inbox">
+            <div class="inbox-sb">
+                <div class="inbox-bx container-fluid">
+                    <div id="container">
+                        <div class="container">
+                            <h1>Short URL</h1>
+                            <p>Transform long URLs into concise, shareable links. Perfect for social media, marketing campaigns, and more.</p>
+                            <form id="shorten-form">
+                                <input type="url" class="form-control" id="long-url" placeholder="Enter long URL here" required>
+                                <br>
+                                <button type="button" class="btn btn-primary" id="shortcode" onclick="get_s();">Short URL</button>
+                            </form>
+
+                            <span id="SHORT_URL"></span>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- New container for user's short URLs -->
+                    <div class="container mt-5">
+                        <h2>Your Short URLs</h2>
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th> <!-- Serial Number Column -->
+                                    <th>Original URL</th>
+                                    <th>Short URL</th>
+                                    <th>Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for url in user_urls %}
+                                <tr>
+                                    <td>{{ loop.index }}</td> <!-- Display the serial number using loop.index -->
+                                    <td><a href="{{ url.long_url }}" target="_blank">{{ url.long_url }}</a></td>
+                                    <td><a href="{{ url_for('redirector', short_code=url.short_code) }}" target="_blank">{{ url.short_code }}</a></td>
+                                    <td>{{ url.created_at }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function get_s(){
+            const longUrl = $('#long-url').val();
+        
+            $.ajax({
+                url: '/CREATE_URL',
+                type: 'POST',
+                data: { long_url: longUrl },
+                success: function (data) {
+                    console.log(data);
+                    //let trackUrl = data.replace('/r?', '/track?');
+                    $("#SHORT_URL").html(data.short_url);
+                },
+                error: function (jqXHR
+                , textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My QR Codes</title>
+    {% include 'links.html' %}
+    <style>
+        .qr-card {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: white;
+        }
+        .qr-image {
+            max-width: 100%;
+            height: auto;
+        }
+        .inbox{
+            background-color: #f4f6fa !important;
+        }
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% include 'msb.html' %}
+    <div class="mcw">
+        <div class="cv"></div>
+        <div class="inbox">
+            <div class="inbox-sb">
+            </div>
+            <div class="inbox-bx container">
+                <h1 class="mb-4">My QR Codes</h1>
+                <div class="row">
+                    {% for qr in qr_codes %}
+                        <div class="col-md-12 col-sm-6 qr-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h5 class="card-title">QR Code #{{ qr.id }}</h5>
+                                            <p class="card-text">URL: {{ qr.url }}</p>
+                                            <p class="card-text"><small class="text-muted">Created on: {{ qr.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small></p>
+                                            <a href="{{ qr.url }}" class="btn btn-primary btn-sm" target="_blank">Visit URL</a>
+                                            <a href="data:image/png;base64,{{ qr.image_data }}" download="qr_code_{{ qr.id }}.png" class="btn btn-secondary btn-sm">Download</a>
+                                            <a href="{{ url_for('qr_code', edit=qr.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <img src="data:image/png;base64,{{ qr.image_data }}" class="card-img-top qr-image" alt="QR Code">        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        $(".side").removeClass("active");
+        $("#my_qr_codes_sb").addClass("active");  // Assuming you have a sidebar item for My QR Codes
+    </script>
+</body>
+</html>

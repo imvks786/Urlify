@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Account Settings</title>
+    {% include 'links.html' %}
+    <link rel="stylesheet" href="static/css/login.css"/>
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% include 'msb.html' %}    
+    <!--main content wrapper-->
+    <div class="mcw">
+        <div class="cv">
+            <div>
+                <div class="inbox">
+                    <div class="inbox-sb">
+                        <div class="inbox-bx container-fluid">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-8 offset-md-2">
+                                        <h2>Account Settings</h2>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h3>Welcome, {{ username }}!</h3>
+                                                <form action="/update_account" method="POST">
+                                                    <div class="form-group">
+                                                        <label for="email">Email</label>
+                                                        <input type="email" class="form-control" id="email" name="email" value="{{ email }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="new_password">New Password</label>
+                                                        <input type="password" class="form-control" id="new_password" name="new_password">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="confirm_password">Confirm New Password</label>
+                                                        <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Update Account</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

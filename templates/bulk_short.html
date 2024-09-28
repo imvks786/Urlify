@@ -1,0 +1,111 @@
+<!Doctype html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <title>Bulk URL Shortener</title>
+    {% include 'links.html' %}
+    <link rel="stylesheet" href="static/css/qr_code.css"/>
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% include 'msb.html' %}
+    <style>
+            .drop_area{
+                border: 2px dashed;
+                border-radius: 15px;
+                padding: 20px;
+                cursor: pointer;
+                background-color: white;
+            }
+            .drop_area:hover{
+                background-color: #d3e3fd;
+            }
+            input[type=file] {
+                outline: none;
+                width: 100%;
+                color: #444;
+                background: #fff;
+                border: none;
+            }
+            input[type=file]::file-selector-button {
+                margin-right: 20px;
+                border: none;
+                background: #007bff;
+                padding: 10px 20px;
+                border-radius: 10px;
+                color: #fff;
+                cursor: pointer;
+            }
+            input[type=file]::file-selector-button:hover {
+                 background: #007bff;
+            }
+            #preview-container{
+                background-color: aliceblue;
+                padding: 25px;
+                border-radius: 25px;
+                border: 1px solid #e1eaf2;
+            }
+            #preview-table{
+                background-color: white;
+            }
+            .fa-check-circle{
+                color: green !important;
+            }
+    </style>
+    <div class="mcw">
+        <div class="cv"></div>
+        <div class="inbox">
+            <div class="inbox-sb"></div>
+            <div class="inbox-bx container-fluid">
+                <div class="container">
+                    <div class="container">
+                        <h1>Bulk URL Shortener</h1>
+                        <p>Shorten multiple URLs at once, saving time and effort. Perfect for large-scale campaigns and content management.</p>
+                        <span><b>Note:</b> Make sure you have only one column named <b>"Links"</b> in your Excel sheet.</span>
+                        <br>
+                        <br>
+                        <div class="text-center">
+                            <div class="container drop_area text-center">
+                                <form id="upload-form" enctype="multipart/form-data">
+                                    <input type="file" id="excel-file" accept=".xlsx, .xls" required>
+                                </form>
+                            </div>
+                            <br>
+                            <br>
+                            <button type="button" class="btn btn-primary mt-10" id="upload-btn">Upload and Preview</button>
+                        </div>
+        
+                        <br>
+                        <br>
+
+                        <div id="preview-container" style="display: none;">
+                            <h2>Preview Links</h2>
+                            <table class="table table-bordered table-striped" id="preview-table">
+                                <thead>
+                                    <tr>
+                                        <th>Sno</th>
+                                        <th>Original URL</th>
+                                        <th>Short URL</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-success mt-3" id="process-links">Shorten Links</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+
+                
+                
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="static/js/bulk_short.js"></script>
+</body>
+</html>
