@@ -26,8 +26,8 @@ This project is a URL shortening service that allows users to convert long URLs 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/imvks786/Urlify.git
+   cd Urlify
    ```
 
 2. Create a virtual environment:
