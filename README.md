@@ -10,6 +10,27 @@ This project is a URL shortening service that allows users to convert long URLs 
 - QR code generation for shortened URLs
 - Analytics for tracking URL usage
 
+## Screenshots
+**Dashboard**
+![Screenshot 2024-09-28 120854](https://github.com/user-attachments/assets/7b3032fc-60a8-43f0-9ebf-5c1ee5dc27cf)
+
+**Url Shortener Page**
+![Screenshot 2024-09-28 121109](https://github.com/user-attachments/assets/806dbf65-5780-464c-a87b-5d2a3edecdb7)
+
+**Analytics**
+![Screenshot 2024-09-28 121525](https://github.com/user-attachments/assets/07713b23-3889-4c59-939c-1aae1a861718)
+
+**UTM Builder**
+![Screenshot 2024-09-28 121629](https://github.com/user-attachments/assets/8966b58c-df46-4914-8edf-aaf42c61cc3c)
+
+**QR Code - Create Page**
+![Screenshot 2024-09-28 121657](https://github.com/user-attachments/assets/4d331d6f-de02-4aba-87af-39f6a012bce5)
+![Screenshot 2024-09-28 121711](https://github.com/user-attachments/assets/428186e7-3528-4a1e-9855-db8794ff0da3)
+
+**QR Code - Management Page**
+![Screenshot 2024-09-28 121725](https://github.com/user-attachments/assets/b573d751-b895-4080-a654-e190b37a5aaa)
+
+
 ## Technologies Used
 
 - **Backend**: Flask
